@@ -1,7 +1,7 @@
 import re
 import requests
-from bs4 import BeautifulSoup
 from urllib import urlopen
+from bs4 import BeautifulSoup
 
 class OpenGraph:
     url = None
@@ -20,5 +20,8 @@ class OpenGraph:
             tag_property = og_tag_obj.get('property')
             tag_property = tag_property.replace('og:', '')
             self.tags[tag_property] = og_tag_obj.get('content')
+
+        if 'title' not in self.tags:
+            self.tags['title'] = soup.title.text
 
         return self.tags
